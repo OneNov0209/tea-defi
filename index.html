@@ -4,20 +4,27 @@
     <meta charset="utf-8" />
     <link rel="icon" href="https://i.ibb.co.com/whmNWQqd/Screenshot-2025-04-05-01-44-25-514-com-android-chrome-edit.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#131b2e" />
+    <meta name="theme-color" content="#0a192f" />
     <meta name="description" content="Tea DeFi - Decentralized Lending Platform on Tea Sepolia Network"/>
     <link rel="apple-touch-icon" href="https://i.ibb.co.com/whmNWQqd/Screenshot-2025-04-05-01-44-25-514-com-android-chrome-edit.jpg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
       :root {
-        --primary-bg: #131b2e;
-        --secondary-bg: #1a2135;
-        --accent-color: #90ee90;
-        --accent-glow: rgba(144, 238, 144, 0.5);
-        --text-primary: #f5f5f5;
-        --text-secondary: #b8c2d8;
-        --text-tertiary: #8a94ab;
+        /* Modern Navy Blue Color Palette */
+        --primary-dark: #0a192f;
+        --primary-light: #172a45;
+        --secondary-dark: #1f3a68;
+        --accent-teal: #64ffda;
+        --accent-teal-dark: #52d1b2;
+        --text-primary: #e6f1ff;
+        --text-secondary: #ccd6f6;
+        --text-tertiary: #8892b0;
+        
+        /* Gradients */
+        --gradient-accent: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-dark));
+        --gradient-bg: linear-gradient(to bottom, var(--primary-dark), var(--primary-light));
       }
       
       * {
@@ -31,8 +38,8 @@
       }
       
       body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--primary-bg);
+        font-family: 'Space Grotesk', sans-serif;
+        background: var(--gradient-bg);
         color: var(--text-primary);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
@@ -40,324 +47,578 @@
       }
       
       .main-container {
-        max-width: 900px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 40px 20px;
+        padding: 0 20px;
+      }
+      
+      /* Navigation */
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 0;
+        position: relative;
+        z-index: 100;
+      }
+      
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      
+      .nav-logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      
+      .nav-logo-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--accent-teal);
+        letter-spacing: -0.5px;
+      }
+      
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+      
+      .nav-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+      
+      .nav-link:hover {
+        color: var(--accent-teal);
+      }
+      
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background: var(--accent-teal);
+        transition: width 0.3s ease;
+      }
+      
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--primary-light);
+        min-width: 200px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 5px;
+        padding: 10px 0;
+      }
+      
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      .dropdown-link {
+        color: var(--text-secondary);
+        padding: 10px 20px;
+        text-decoration: none;
+        display: block;
+        transition: all 0.3s ease;
+      }
+      
+      .dropdown-link:hover {
+        color: var(--accent-teal);
+        background-color: rgba(100, 255, 218, 0.1);
       }
       
       /* Hero Section */
       .hero-section {
-        text-align: center;
-        margin: 60px 0 80px;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      }
-      
-      .hero-section.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      
-      .logo-frame {
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        margin: 0 auto 30px;
+        min-height: 90vh;
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: center;
-        background: linear-gradient(145deg, #1a2135, #131b2e);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-                    0 0 0 2px var(--accent-color),
-                    0 0 20px var(--accent-glow);
+        padding: 100px 0;
         position: relative;
         overflow: hidden;
       }
       
-      .logo-frame::after {
-        content: '';
-        position: absolute;
-        width: calc(100% - 8px);
-        height: calc(100% - 8px);
-        border-radius: 50%;
-        border: 1px solid rgba(144, 238, 144, 0.3);
+      .hero-content {
+        max-width: 700px;
+        position: relative;
+        z-index: 2;
       }
       
-      .logo-img {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        object-fit: cover;
-        display: block;
-      }
-      
-      h1 {
-        font-size: 2.4rem;
-        font-weight: 600;
+      .hero-subtitle {
+        color: var(--accent-teal);
+        font-size: 1.1rem;
         margin-bottom: 20px;
-        color: var(--text-primary);
-        line-height: 1.3;
+        font-family: 'IBM Plex Mono', monospace;
+      }
+      
+      .hero-title {
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 25px;
+      }
+      
+      .hero-title span {
+        color: var(--accent-teal);
       }
       
       .hero-description {
-        font-size: 1.1rem;
-        color: var(--text-secondary);
-        margin-bottom: 32px;
+        font-size: 1.2rem;
+        color: var(--text-tertiary);
+        margin-bottom: 40px;
         line-height: 1.7;
         max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
       }
       
-      .get-started-btn {
-        background-color: var(--accent-color);
-        color: #131b2e;
-        border: none;
-        padding: 14px 32px;
+      .hero-cta {
+        display: flex;
+        gap: 20px;
+      }
+      
+      .btn {
+        padding: 16px 32px;
         font-size: 1rem;
         font-weight: 600;
-        border-radius: 30px;
+        border-radius: 5px;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px var(--accent-glow);
-        letter-spacing: 0.5px;
+        text-decoration: none;
+        display: inline-block;
       }
       
-      .get-started-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px var(--accent-glow);
+      .btn-primary {
+        background: var(--gradient-accent);
+        color: var(--primary-dark);
+        border: none;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.4);
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--accent-teal);
+        border: 1px solid var(--accent-teal);
+      }
+      
+      .btn-secondary:hover {
+        background: rgba(100, 255, 218, 0.1);
       }
       
       /* Content Sections */
-      .content-section {
-        margin: 80px 0;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      .section {
+        padding: 100px 0;
       }
       
-      .content-section.visible {
+      .section-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        position: relative;
+      }
+      
+      .section-title:after {
+        content: '';
+        display: block;
+        width: 70px;
+        height: 3px;
+        background: var(--gradient-accent);
+        margin-top: 15px;
+      }
+      
+      /* Features Grid */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+      
+      .feature-card {
+        background: rgba(23, 42, 69, 0.5);
+        border-radius: 10px;
+        padding: 40px 30px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(100, 255, 218, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      
+      .feature-card.visible {
         opacity: 1;
         transform: translateY(0);
       }
       
-      .section-title {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: var(--accent-color);
-        margin-bottom: 30px;
-        position: relative;
-        padding-left: 20px;
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       }
       
-      .section-title:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent-color);
-        box-shadow: 0 0 8px var(--accent-glow);
-      }
-      
-      .content-text {
-        font-size: 1.05rem;
-        color: var(--text-secondary);
-        line-height: 1.8;
-        margin-bottom: 25px;
-      }
-      
-      .feature-list {
-        margin: 30px 0;
-      }
-      
-      .feature-item {
-        margin-bottom: 30px;
-        padding-left: 25px;
-        position: relative;
+      .feature-icon {
+        color: var(--accent-teal);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
       }
       
       .feature-title {
-        font-size: 1.2rem;
-        font-weight: 600;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
         color: var(--text-primary);
-        margin-bottom: 12px;
-        position: relative;
       }
       
-      .feature-title:before {
-        content: '»';
-        position: absolute;
-        left: -25px;
-        color: var(--accent-color);
-      }
-      
-      .feature-description {
-        font-size: 1rem;
-        color: var(--text-secondary);
+      .feature-desc {
+        color: var(--text-tertiary);
         line-height: 1.7;
+      }
+      
+      /* Smart Contract Info */
+      .contract-info {
+        background: rgba(23, 42, 69, 0.5);
+        border-radius: 10px;
+        padding: 30px;
+        margin-top: 50px;
+        border: 1px solid rgba(100, 255, 218, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+      }
+      
+      .contract-info.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .contract-title {
+        color: var(--accent-teal);
+        font-size: 1.2rem;
         margin-bottom: 15px;
+        font-family: 'IBM Plex Mono', monospace;
       }
       
-      .tech-specs {
-        background: rgba(26, 33, 53, 0.6);
-        border-radius: 8px;
-        padding: 25px;
-        margin: 40px 0;
-        font-family: 'Roboto Mono', monospace;
-        border-left: 3px solid var(--accent-color);
-      }
-      
-      .tech-specs h3 {
-        font-size: 1rem;
-        margin-bottom: 15px;
-        color: var(--accent-color);
-      }
-      
-      .tech-specs p {
-        font-size: 0.9rem;
+      .contract-address {
+        background: rgba(10, 25, 47, 0.7);
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'IBM Plex Mono', monospace;
+        word-break: break-all;
         color: var(--text-secondary);
-        margin-bottom: 10px;
-        line-height: 1.6;
+        font-size: 0.9rem;
+        border: 1px solid rgba(100, 255, 218, 0.2);
       }
       
-      .spec-highlight {
-        color: var(--accent-color);
-        font-weight: 500;
+      /* Footer */
+      .footer {
+        background-color: var(--primary-light);
+        padding: 70px 0 30px;
+        border-top: 1px solid rgba(100, 255, 218, 0.1);
       }
       
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+      
+      .footer-col-title {
+        color: var(--accent-teal);
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+      
+      .footer-links {
+        list-style: none;
+      }
+      
+      .footer-link {
+        margin-bottom: 12px;
+      }
+      
+      .footer-link a {
+        color: var(--text-tertiary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.95rem;
+      }
+      
+      .footer-link a:hover {
+        color: var(--accent-teal);
+      }
+      
+      .footer-social {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      
+      .social-icon {
+        color: var(--text-tertiary);
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+      
+      .social-icon:hover {
+        color: var(--accent-teal);
+      }
+      
+      .footer-bottom {
+        border-top: 1px solid rgba(100, 255, 218, 0.1);
+        padding-top: 30px;
+        text-align: center;
+        color: var(--text-tertiary);
+        font-size: 0.9rem;
+      }
+      
+      /* Responsive */
       @media (max-width: 768px) {
-        .main-container {
-          padding: 30px 15px;
+        .nav-links {
+          display: none;
         }
         
-        h1 {
-          font-size: 2rem;
+        .hero-cta {
+          flex-direction: column;
+          gap: 15px;
         }
         
-        .section-title {
-          font-size: 1.5rem;
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
         
-        .content-text, .feature-description {
-          font-size: 1rem;
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
   </head>
   <body>
+    <!-- Header -->
+    <header class="nav">
+      <a href="https://tea.xyz/" class="nav-logo">
+        <img src="https://i.ibb.co.com/whmNWQqd/Screenshot-2025-04-05-01-44-25-514-com-android-chrome-edit.jpg" alt="Tea Protocol Logo" class="nav-logo-img">
+        <span class="nav-logo-text">Tea DeFi</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="https://tea.xyz/" class="nav-link">Website</a>
+        <a href="https://app.tea.xyz" class="nav-link">App</a>
+        
+        <div class="dropdown">
+          <a href="#" class="nav-link">Resources <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
+          <div class="dropdown-content">
+            <a href="https://docs.tea.xyz/tea" class="dropdown-link">Documentation</a>
+            <a href="https://tea.xyz/blog" class="dropdown-link">Blog</a>
+            <a href="https://docs.tea.xyz/tea-white-paper/white-paper" class="dropdown-link">White Paper</a>
+            <a href="https://tea.xyz/learn/roadmap" class="dropdown-link">Roadmap</a>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <a href="#" class="nav-link">Governance <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i></a>
+          <div class="dropdown-content">
+            <a href="https://app.tea.xyz/tea-dao" class="dropdown-link">teaDAO</a>
+            <a href="https://forum.tea.xyz" class="dropdown-link">Forum</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <div class="main-container">
       <!-- Hero Section -->
       <section class="hero-section">
-        <div class="logo-frame">
-          <img src="https://i.ibb.co.com/whmNWQqd/Screenshot-2025-04-05-01-44-25-514-com-android-chrome-edit.jpg" alt="Tea DeFi Logo" class="logo-img">
-        </div>
-        
-        <h1>Tea DeFi</h1>
-        
-        <p class="hero-description">
-          Borrow and lend with ease on Tea Sepolia network. Experience decentralized finance with our secure and efficient platform.
-        </p>
-        
-        <button id="getStartedBtn" class="get-started-btn">Get Started</button>
-      </section>
-      
-      <!-- Project Overview -->
-      <section class="content-section">
-        <h2 class="section-title">Project Overview</h2>
-        <p class="content-text">
-          Tea DeFi is a sophisticated decentralized lending protocol built on the Tea Sepolia testnet, enabling users to participate in trustless lending and borrowing of TEA tokens. This Web3 application leverages smart contracts to create a transparent, secure, and efficient financial ecosystem without intermediaries.
-        </p>
-      </section>
-      
-      <!-- Key Features -->
-      <section class="content-section">
-        <h2 class="section-title">Key Features</h2>
-        
-        <div class="feature-list">
-          <div class="feature-item">
-            <h3 class="feature-title">Wallet Integration</h3>
-            <p class="feature-description">
-              Seamless MetaMask connectivity with automatic network configuration. Secure account management with real-time balance tracking and cross-chain compatibility including Tea Sepolia network support.
-            </p>
-          </div>
-          
-          <div class="feature-item">
-            <h3 class="feature-title">Core Lending Functions</h3>
-            <p class="feature-description">
-              Deposit liquidity to earn interest from the lending pool. Borrow assets with flexible loan terms through our transparent repayment system with dynamic interest calculation and real-time loan tracking.
-            </p>
-          </div>
-          
-          <div class="feature-item">
-            <h3 class="feature-title">Technical Architecture</h3>
-            <p class="feature-description">
-              React.js frontend with responsive design. Ethers.js for blockchain interactions and smart contract integration using ABI specifications. Event-driven UI updates for real-time data synchronization.
-            </p>
-          </div>
-          
-          <div class="feature-item">
-            <h3 class="feature-title">Security Features</h3>
-            <p class="feature-description">
-              Non-custodial asset management with secure transaction signing. Comprehensive error handling and contract event monitoring to ensure platform integrity and user fund safety.
-            </p>
+        <div class="hero-content">
+          <p class="hero-subtitle">Decentralized Lending Protocol</p>
+          <h1 class="hero-title">Borrow & Lend on <span>Tea Sepolia</span></h1>
+          <p class="hero-description">
+            Experience decentralized finance with our secure and efficient platform built on Tea Sepolia network.
+          </p>
+          <div class="hero-cta">
+            <a href="https://tea-dapp.vercel.app/" class="btn btn-primary">Lending App By OneNov</a>
+            <a href="https://docs.tea.xyz/tea" class="btn btn-secondary">Documentation</a>
           </div>
         </div>
       </section>
       
-      <!-- Technical Specifications -->
-      <section class="content-section">
-        <h2 class="section-title">Technical Specifications</h2>
+      <!-- Content Sections -->
+      <section class="section">
+        <h2 class="section-title">Lending & Borrowing Features</h2>
         
-        <div class="tech-specs">
-          <h3>Blockchain Network</h3>
-          <p><span class="spec-highlight">Tea Sepolia Testnet</span> (Chain ID: 10218)</p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-coins"></i>
+            </div>
+            <h3 class="feature-title">Supply Assets</h3>
+            <p class="feature-desc">
+              Deposit your crypto assets to earn interest. Your supplied assets become available for borrowing while generating passive yield.
+            </p>
+          </div>
           
-          <h3>Smart Contracts</h3>
-          <p><span class="spec-highlight">TeaNov (ERC-20):</span> 0xF34f373873f682de3013448DB674464b2aC1FB12</p>
-          <p><span class="spec-highlight">Lending Protocol:</span> 0x6f3c730aa1d8c5355b55b8fe4247108f65ebb2ee</p>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <h3 class="feature-title">Borrow Assets</h3>
+            <p class="feature-desc">
+              Access liquidity without selling your assets. Borrow against your collateral with competitive interest rates.
+            </p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-percentage"></i>
+            </div>
+            <h3 class="feature-title">Dynamic Rates</h3>
+            <p class="feature-desc">
+              Interest rates adjust algorithmically based on supply and demand, ensuring optimal returns for lenders.
+            </p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Secure Collateral</h3>
+            <p class="feature-desc">
+              Over-collateralized loans protect the protocol while smart contracts ensure transparency and security.
+            </p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3 class="feature-title">Real-time Analytics</h3>
+            <p class="feature-desc">
+              Monitor your positions, loan health, and market conditions with our comprehensive dashboard.
+            </p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h3 class="feature-title">Instant Liquidity</h3>
+            <p class="feature-desc">
+              Withdraw your supplied assets or repay loans anytime without lock-up periods.
+            </p>
+          </div>
         </div>
-      </section>
-      
-      <!-- Innovative Aspects -->
-      <section class="content-section">
-        <h2 class="section-title">Innovative Aspects</h2>
         
-        <div class="feature-list">
-          <div class="feature-item">
-            <h3 class="feature-title">Real-Time Data Synchronization</h3>
-            <p class="feature-description">
-              The platform actively listens to blockchain events to update the UI instantly after transactions, ensuring users always see the most current information without manual refreshing.
-            </p>
-          </div>
+        <div class="contract-info">
+          <h3 class="contract-title">TeaNov Smart Contract</h3>
+          <div class="contract-address">0xF34f373873f682de3013448DB674464b2aC1FB12</div>
           
-          <div class="feature-item">
-            <h3 class="feature-title">Comprehensive Wallet Management</h3>
-            <p class="feature-description">
-              Advanced handling of wallet connections, network switching, and account changes provides a seamless Web3 experience across different Ethereum-compatible wallets.
-            </p>
-          </div>
-          
-          <div class="feature-item">
-            <h3 class="feature-title">Professional Transaction Flow</h3>
-            <p class="feature-description">
-              Clear status updates guide users through each transaction step (approval, execution, confirmation) with automatic balance updates post-transaction for immediate feedback.
-            </p>
-          </div>
+          <h3 class="contract-title" style="margin-top: 25px;">Lending Protocol Contract</h3>
+          <div class="contract-address">0x6f3c730aa1d8c5355b55b8fe4247108f65ebb2ee</div>
         </div>
       </section>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="main-container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3 class="footer-col-title">Tea DeFi</h3>
+            <ul class="footer-links">
+              <li class="footer-link"><a href="https://tea.xyz/">Website</a></li>
+              <li class="footer-link"><a href="https://app.tea.xyz">App</a></li>
+              <li class="footer-link"><a href="https://docs.tea.xyz/tea">Documentation</a></li>
+              <li class="footer-link"><a href="https://tea.xyz/blog">Blog</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h3 class="footer-col-title">Resources</h3>
+            <ul class="footer-links">
+              <li class="footer-link"><a href="https://docs.tea.xyz/tea-white-paper/white-paper">White Paper</a></li>
+              <li class="footer-link"><a href="https://tea.xyz/learn/roadmap">Roadmap</a></li>
+              <li class="footer-link"><a href="https://github.com/teaxyz">GitHub</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h3 class="footer-col-title">Governance</h3>
+            <ul class="footer-links">
+              <li class="footer-link"><a href="https://app.tea.xyz/tea-dao">teaDAO</a></li>
+              <li class="footer-link"><a href="https://forum.tea.xyz">Forum</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h3 class="footer-col-title">Connect</h3>
+            <ul class="footer-links">
+              <li class="footer-link"><a href="https://twitter.com/teaprotocol">Twitter</a></li>
+              <li class="footer-link"><a href="https://discord.tea.xyz">Discord</a></li>
+              <li class="footer-link"><a href="https://t.me/teaprotocol">Telegram</a></li>
+              <li class="footer-link"><a href="https://warpcast.com/teaprotocol">Farcaster</a></li>
+              <li class="footer-link"><a href="https://youtube.com/@teaxyz_">YouTube</a></li>
+              <li class="footer-link"><a href="https://www.instagram.com/tea.protocol">Instagram</a></li>
+            </ul>
+            
+            <div class="footer-social">
+              <a href="https://twitter.com/teaprotocol" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="https://discord.tea.xyz" class="social-icon"><i class="fab fa-discord"></i></a>
+              <a href="https://t.me/teaprotocol" class="social-icon"><i class="fab fa-telegram"></i></a>
+              <a href="https://youtube.com/@teaxyz_" class="social-icon"><i class="fab fa-youtube"></i></a>
+              <a href="https://www.instagram.com/tea.protocol" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© 2025 Tea DeFi Protocol. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
     <script>
-      // Intersection Observer for scroll animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+      
+      // Scroll animation for feature cards
+      const featureCards = document.querySelectorAll('.feature-card');
+      const contractInfo = document.querySelector('.contract-info');
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -365,18 +626,19 @@
             entry.target.classList.add('visible');
           }
         });
-      }, observerOptions);
-      
-      // Observe all sections
-      document.querySelectorAll('.hero-section, .content-section').forEach(section => {
-        observer.observe(section);
+      }, {
+        threshold: 0.1
       });
       
-      // Get Started button functionality
-      document.getElementById('getStartedBtn').addEventListener('click', function() {
-        // Redirect to your React DApp
-        window.location.href = 'https://tea-dapp.vercel.app/';
+      featureCards.forEach(card => {
+        observer.observe(card);
       });
+      
+      if (contractInfo) {
+        observer.observe(contractInfo);
+      }
+      
+      // Mobile menu toggle would go here
     </script>
   </body>
 </html>
